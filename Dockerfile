@@ -7,8 +7,7 @@ FROM python:3.11-alpine AS builder
 ARG TARGETPLATFORM
 
 # Set up the build environment:
-ENV CRYPTOGRAPHY_VERSION=42.0.8 \
-    PIP_DEFAULT_TIMEOUT=100 \
+ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_PREFER_BINARY=1 \
@@ -29,9 +28,7 @@ RUN apk add --no-cache \
 
 # Add poetry and build dependencies:
 COPY . .
-RUN printf "[global]\nextra-index-url=https://www.piwheels.org/simple\n" > /etc/pip.conf \
-    && pip install --upgrade pip \
-    && pip install cryptography==${CRYPTOGRAPHY_VERSION} \
+RUN pip install --upgrade pip \
     && pip install poetry==${POETRY_VERSION} \
     && python3 -m venv /venv
 RUN poetry export --without-hashes -f requirements.txt --only main \
