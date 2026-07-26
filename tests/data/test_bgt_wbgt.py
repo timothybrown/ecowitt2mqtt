@@ -22,13 +22,10 @@ from tests.common import TEST_CONFIG_JSON
 @pytest.mark.parametrize(
     "config",
     [
-        TEST_CONFIG_JSON
-        | {CONF_OUTPUT_UNIT_TEMPERATURE: UnitOfTemperature.CELSIUS},
+        TEST_CONFIG_JSON | {CONF_OUTPUT_UNIT_TEMPERATURE: UnitOfTemperature.CELSIUS},
     ],
 )
-def test_bgt_wbgt_metric_output(
-    device_data: dict[str, Any], ecowitt: Ecowitt
-) -> None:
+def test_bgt_wbgt_metric_output(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
     """Test that BGT and WBGT values are converted from Fahrenheit to Celsius."""
     processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
 
@@ -76,8 +73,7 @@ def test_bgt_wbgt_imperial_output(
 @pytest.mark.parametrize(
     "config",
     [
-        TEST_CONFIG_JSON
-        | {CONF_OUTPUT_UNIT_SYSTEM: UnitSystem.METRIC},
+        TEST_CONFIG_JSON | {CONF_OUTPUT_UNIT_SYSTEM: UnitSystem.METRIC},
     ],
 )
 def test_bgt_wbgt_metric_unit_system(
@@ -104,9 +100,7 @@ def test_bgt_wbgt_metric_unit_system(
 
 @pytest.mark.parametrize("device_data_filename", ["payload_gw3000b_bgt.json"])
 @pytest.mark.parametrize("config", [TEST_CONFIG_JSON])
-def test_bgtbatt_handled(
-    device_data: dict[str, Any], ecowitt: Ecowitt
-) -> None:
+def test_bgtbatt_handled(device_data: dict[str, Any], ecowitt: Ecowitt) -> None:
     """Test that bgtbatt is recognized as a battery data point."""
     processed_data = ProcessedData(ecowitt.configs.default_config, device_data)
 
